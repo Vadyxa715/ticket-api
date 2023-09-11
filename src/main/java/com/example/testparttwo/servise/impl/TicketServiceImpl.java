@@ -4,7 +4,9 @@ import com.example.testparttwo.dto.TicketDto;
 import com.example.testparttwo.servise.TicketService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TicketServiceImpl implements TicketService {
     @Override
     public TicketDto createTicket(TicketDto ticketDto) {
@@ -16,10 +18,7 @@ public class TicketServiceImpl implements TicketService {
         return null;
     }
 
-    @Override
-    public TicketDto getAllTicketToPay(TicketDto ticketDto) {
-        return null;
-    }
+
 
     @Override
     public TicketDto getTransporterByTicketId(TicketDto ticketDto) {

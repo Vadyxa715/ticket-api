@@ -4,7 +4,10 @@ package com.example.testparttwo.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +19,9 @@ public class User {
     private String login;
     private String password;
     private String fullName;//ФИО
+
+    @MappedCollection(keyColumn = "USER_ID", idColumn = "USER_ID")
+    private Set<Ticket> tickets;
 
     public User(Long userId, String login, String password, String fullName) {
         this.userId = userId;

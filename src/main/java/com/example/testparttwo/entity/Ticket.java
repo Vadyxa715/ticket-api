@@ -1,6 +1,7 @@
 package com.example.testparttwo.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
+//@AllArgsConstructor
 @Table("ticket")
 public class Ticket {
 
@@ -21,6 +23,8 @@ public class Ticket {
     private Integer place;
     private Double price;
     private Boolean paid;       //Когда купим изменяем состояние для пользователя.
+
+    private User user;//OneToOne
 
     @MappedCollection(keyColumn = "TICKET_ID", idColumn = "TICKET_ID")
     private Set<Trail> trails;

@@ -1,18 +1,27 @@
 package com.example.testparttwo.repo;
 
 import com.example.testparttwo.entity.Ticket;
-import lombok.NonNull;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
-public interface TicketRepo extends CrudRepository<Ticket, Long> {
-//    @Query(value = "select t.* from tickets t join tickets_users tu on tu.ticket_id = t.id" +
-//            " where tu.user_id = ?1", nativeQuery = true)
-//    List<Ticket> findByUserId(Long userId);
+public interface TicketRepo extends PagingAndSortingRepository<Ticket, Long> {
+    @Override
+    Page<Ticket> findAll(Pageable pageable);
 
-    @NonNull Optional<Ticket> findById (Long id);
-    @NonNull Optional<Ticket> findByUserId (Long id);
+    //* Добавление методов просто в интерфейс из примера в ручную
+    // сам пример:
+    //     bezkoder.com/spring-boot-jdbctemplate-postgresql-example/    *//
+    int save(Ticket ticket);
+    int update(Ticket ticket);
+    Ticket findById(Long id);
+    int deleteById(Long id);
+    List<Ticket> findAll();
+    List<Ticket> findByPaid(boolean paid);
+    List<Ticket> findByTransporter(String transporter);
+    int deleteAll();
 }
