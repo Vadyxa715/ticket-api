@@ -1,4 +1,6 @@
 package com.example.testparttwo.servise.impl;
 
-public class TransporterServiceImpl {
+import com.example.testparttwo.servise.TrailService;
+
+public class TransporterServiceImpl implements TrailService {
 }

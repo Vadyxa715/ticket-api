@@ -1,32 +1,28 @@
 package com.example.testparttwo.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@Entity
-@Table(name = "transporter")
+@Table("transporter")
 public class Transporter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "name")
+    private Long transporterId;
     private String name;
-
-    @Column(name = "phone")
     private String phone;
 
-    @OneToMany(mappedBy = "trail")//один транспартер -> много маршрутов
-    private List<Trail> trails;//удалить если не пригодится
+    @MappedCollection(keyColumn = "TRANSPORTER_ID", idColumn = "TRANSPORTER_ID")
+    private Set<Trail> trails;
 
-    public Transporter(Long id, String name, String phone) {
-        this.id = id;
+    public Transporter(Long transporterId, String name, String phone) {
+        this.transporterId = transporterId;
         this.name = name;
         this.phone = phone;
     }

@@ -1,30 +1,24 @@
 package com.example.testparttwo.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @NoArgsConstructor
-@Entity
-@Table(name = "user")
+@Table("user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "login")
+    private Long userId;
     private String login;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "full_name")
     private String fullName;//ФИО
 
-    public User(Long id, String login, String password, String fullName) {
-        this.id = id;
+    public User(Long userId, String login, String password, String fullName) {
+        this.userId = userId;
         this.login = login;
         this.password = password;
         this.fullName = fullName;

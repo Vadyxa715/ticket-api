@@ -17,7 +17,7 @@ public class TransporterMapper {
     public static TransporterDto revert (Transporter transporter){
         if(transporter==null) return null;
         return new TransporterDto(
-                transporter.getId(),
+                transporter.getTransporterId(),
                 transporter.getName(),
                 transporter.getName()
         );

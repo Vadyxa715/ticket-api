@@ -7,7 +7,7 @@ public class TrailMapper {
     public static TrailDto convert (Trail trail){
         if(trail==null) return null;
         return new TrailDto(
-                trail.getId(),
+                trail.getTrailId(),
                 trail.getPointDeparture(),
                 trail.getPointDeparture(),
                 trail.getDuration()

@@ -7,7 +7,7 @@ public class TicketMapper {
     public static TicketDto convert (Ticket ticket){
         if(ticket == null) return null;
         return new TicketDto(
-                ticket.getId(),
+                ticket.getTicketId(),
                 ticket.getDepartureTime(),
                 ticket.getPlace(),
                 ticket.getPrice(),

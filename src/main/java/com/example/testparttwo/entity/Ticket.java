@@ -1,46 +1,35 @@
 package com.example.testparttwo.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@Entity
-@Table(name = "ticket")
+@Table("ticket")
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "departure_time")//отправление
+    private Long ticketId;
     private Date departureTime;
-
-    @Column(name = "place")//место
     private Integer place;
-
-    @Column(name = "price")//цена
     private Double price;
-
-
-    @Column(name = "paid")      //Добавить boolean переменную - купленный.
     private Boolean paid;       //Когда купим изменяем состояние для пользователя.
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "trail",
-               joinColumns ={ @JoinColumn(name = "ticket_id", referencedColumnName = "id")},
-               inverseJoinColumns ={ @JoinColumn(name = "trail_id", referencedColumnName = "id")})
-    private Trail trail;
+    @MappedCollection(keyColumn = "TICKET_ID", idColumn = "TICKET_ID")
+    private Set<Trail> trails;
 
-    public Ticket(Long id, Date departureTime, Integer place, Double price, Boolean paid) {
-        this.id = id;
+    public Ticket(Long ticketId, Date departureTime, Integer place, Double price, Boolean paid) {
+        this.ticketId = ticketId;
         this.departureTime = departureTime;
         this.place = place;
         this.price = price;
         this.paid = paid;
     }
-
 }

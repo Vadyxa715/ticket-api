@@ -1,44 +1,34 @@
 package com.example.testparttwo.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.OneToMany;
-import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@Entity
-@Table(name = "trail")//маршрут
+@Table("trail")//маршрут
 public class Trail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "pointDeparture")//поинт отправление
+    private Long trailId;
+    //поинт отправление
     private String pointDeparture;
 
-    @Column(name = "pointArrival")//поинт прибытия
+    //поинт прибытия
     private String pointArrival;
 
-    @ManyToOne(fetch = FetchType.LAZY)//маршрутов много транспартер один
-    @JoinTable(name = "transporter",
-               joinColumns ={@JoinColumn(name = "trails_id", referencedColumnName = "id")},
-               inverseJoinColumns = {@JoinColumn(name = "transporter_id", referencedColumnName = "id")})//транспортер
-    private Transporter transporter;
+    @MappedCollection(keyColumn ="TRAIL_ID", idColumn = "TRAIL_ID")
+    private Set<Transporter> transporters;
 
-    @Column(name = "duration")
-    private Integer duration;//разница между временем отправления и прибытия *ВОЗМОЖНО*
-    //и или время от отправления до текущего если не пришло, и см выше
+    private Integer duration;//время в пути
 
-    @OneToMany(mappedBy = "ticket")//если не пригодится удалить
-    private List<Ticket> tickets;
-
-    public Trail(Long id, String pointDeparture, String pointArrival, Integer duration) {
-        this.id = id;
+    public Trail(Long trailId, String pointDeparture, String pointArrival, Integer duration) {
+        this.trailId = trailId;
         this.pointDeparture = pointDeparture;
         this.pointArrival = pointArrival;
         this.duration = duration;

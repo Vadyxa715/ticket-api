@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -25,5 +22,13 @@ public class UserController {
         UserDto saveUser = userService.createUser(userDto);
         //TO DO VALIDATION |"if не получилось"|
         return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Получить пользователя по  ID")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id){
+        UserDto getUser = userService.getUser(id);
+        //TO DO VALIDATION
+        return new ResponseEntity<>(getUser, HttpStatus.OK);
     }
 }
