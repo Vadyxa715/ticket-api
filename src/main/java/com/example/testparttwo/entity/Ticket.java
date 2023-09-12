@@ -36,4 +36,11 @@ public class Ticket {
         this.price = price;
         this.paid = paid;
     }
+
+    public Ticket(Date departureTime, Integer place, Double price, Boolean paid) {
+        this.departureTime = departureTime;
+        this.place = place;
+        this.price = price;
+        this.paid = paid;
+    }
 }

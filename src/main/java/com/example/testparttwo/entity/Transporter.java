@@ -26,4 +26,9 @@ public class Transporter {
         this.name = name;
         this.phone = phone;
     }
+
+    public Transporter(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
 }

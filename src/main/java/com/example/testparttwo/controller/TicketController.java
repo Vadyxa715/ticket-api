@@ -1,19 +1,20 @@
 package com.example.testparttwo.controller;
 
-import com.example.testparttwo.dto.TicketDto;
 import com.example.testparttwo.entity.Ticket;
 import com.example.testparttwo.repo.TicketRepo;
 import com.example.testparttwo.servise.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -24,62 +25,38 @@ public class TicketController {
     @Autowired
     private TicketRepo ticketRepo;
     private TicketService ticketService;
-   // private TicketParam ticketParam;
+    // private TicketParam ticketParam;
 
     @Operation(summary = "Создать билет")
     @RequestMapping(method = RequestMethod.POST, value = "/create")
-    public ResponseEntity<?> createTicket(@RequestBody Ticket ticket){
-        try{
+    public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
+        try {
             ticketRepo.save(new Ticket(
-                    ticket.getTicketId(),
                     ticket.getDepartureTime(),
                     ticket.getPlace(),
                     ticket.getPrice(),
                     false
-                    ));
-        }catch (Exception e){
+            ));
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("Ticket was created.", HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Operation(summary = "получить все билеты")
+    @RequestMapping(method = RequestMethod.GET, value = "/getAll")
+    public ResponseEntity<List<Ticket>> getAllTickets() {
+        try {
+            List<Ticket> tickets = new ArrayList<Ticket>();
+            ticketRepo.findAll().forEach(tickets::add);
+            if (tickets.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(tickets, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 

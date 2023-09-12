@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TicketRepo extends PagingAndSortingRepository<Ticket, Long> {
-    @Override
-    Page<Ticket> findAll(Pageable pageable);
+public interface TicketRepo {
+
+    Page<Ticket> findAll(Pageable myPageable);
+    //свой класс pagable с нужным полями (можно не все) - упростить
 
     //* Добавление методов просто в интерфейс из примера в ручную
     // сам пример:
