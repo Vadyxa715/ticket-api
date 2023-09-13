@@ -18,7 +18,6 @@ public class Trail {
     private Long trailId;
     //поинт отправление
     private String pointDeparture;
-
     //поинт прибытия
     private String pointArrival;
 

@@ -13,4 +13,9 @@ public class TransporterDto {
     @NonNull
     private String name;
     private String phone;
+
+    public TransporterDto(@NonNull String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
 }
