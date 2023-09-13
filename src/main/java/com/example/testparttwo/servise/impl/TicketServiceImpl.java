@@ -22,15 +22,15 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketDto createTicket(TicketDto ticketDto) {
         Ticket ticket = TicketMapper.revert(ticketDto);
-        Ticket saveTicket = ticketRepo.saveByUserIdAndTrailId(ticket);
-        return TicketMapper.convert(saveTicket);
+        int saveTicket = ticketRepo.save(ticket);
+        Ticket inserted = ticketRepo.findById((long) saveTicket);
+        return TicketMapper.convert(inserted);//вернуть по пришедшему id
     }
 
     @Override
     public TicketDto getUserByTicketId(TicketDto ticketDto) {
         return null;
     }
-
 
 
     @Override

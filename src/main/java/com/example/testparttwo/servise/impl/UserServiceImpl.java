@@ -2,7 +2,9 @@ package com.example.testparttwo.servise.impl;
 
 import com.example.testparttwo.dto.TicketDto;
 import com.example.testparttwo.dto.UserDto;
+import com.example.testparttwo.entity.Ticket;
 import com.example.testparttwo.entity.User;
+import com.example.testparttwo.mapper.TicketMapper;
 import com.example.testparttwo.mapper.UserMapper;
 import com.example.testparttwo.repo.TicketRepo;
 import com.example.testparttwo.repo.UserRepo;
@@ -20,15 +22,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = UserMapper.revert(userDto);
-        User saveUser = userRepo.save(user);
-        return UserMapper.convert(saveUser);
+        int saveUser = userRepo.save(user);
+        User inserted = userRepo.findById(Long.valueOf(saveUser));
+        return UserMapper.convert(inserted);
     }
 
     @Override
     public UserDto getUser(Long userId) {
-        User user = userRepo.findById(userId)
-                .orElse(null);
+        User user = userRepo.findById(userId);
         return UserMapper.convert(user);
+    }
+
+    @Override
+    public List<UserDto> findAll() {
+        return null;
     }
 
     @Override

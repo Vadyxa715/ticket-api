@@ -33,7 +33,9 @@ public class TicketController {
                     ticketDto.getDepartureTime(),
                     ticketDto.getPlace(),
                     ticketDto.getPrice(),
-                    ticketDto.getPaid()
+                    ticketDto.getPaid(),
+                    ticketDto.getTrailId(),
+                    ticketDto.getUserId()
             ));
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

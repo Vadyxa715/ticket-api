@@ -13,6 +13,8 @@ public interface UserService {
 
     UserDto getUser (Long userId);
 
+    List<UserDto> findAll ();
+
     List<TicketDto> getAllPaidTicketsByUserId(Long userId, TicketDto ticketDto);
 
 }

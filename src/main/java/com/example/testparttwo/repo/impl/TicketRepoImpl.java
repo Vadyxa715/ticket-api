@@ -26,17 +26,15 @@ public class TicketRepoImpl implements TicketRepo {
         return jdbcTemplate.update("INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES(?,?,?,?,?,?)",
                 ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUser().getUserId(), ticket.getTrail().getTrailId());
                 //new Object[]{ticket.getTicketId(), ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid()});
+
     }
 
-    @Override
+
+
+        @Override
     public int saveByUserIdAndTrailId(Ticket ticket) {
         return jdbcTemplate.update("INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES(?,?,?,?,?,?)",
-                ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUser.getUserId, ticket.getTrail.getTrailId);
-    }
-
-    @Override
-    public Ticket saveByUserIdAndTrailId(Ticket ticket) {
-        return null;
+                ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUser().getUserId(), ticket.getTrail().getTrailId());
     }
 
     @Override
@@ -57,6 +55,8 @@ public class TicketRepoImpl implements TicketRepo {
         }
     }
 
+
+
     @Override
     public int deleteById(Long id) {
         return jdbcTemplate.update("DELETE FROM tickets WHERE id=?", id);
@@ -71,6 +71,12 @@ public class TicketRepoImpl implements TicketRepo {
     public List<Ticket> findByPaid(boolean paid) {
         return jdbcTemplate.query("SELECT * FROM tickets WHERE paid=?",
                 BeanPropertyRowMapper.newInstance(Ticket.class), paid);
+    }
+
+    @Override
+    public List<Ticket> findAllByUserPaid(boolean paid, Long id) {
+            return jdbcTemplate.query("SELECT * FROM tickets WHERE id=? AND paid=?",
+                    BeanPropertyRowMapper.newInstance(Ticket.class), id, paid);
     }
 
     //TO DO WIS ANNA SQL запрос на проверку транспортера

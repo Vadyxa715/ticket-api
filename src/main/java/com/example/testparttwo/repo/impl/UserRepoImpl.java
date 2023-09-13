@@ -3,9 +3,12 @@ package com.example.testparttwo.repo.impl;
 import com.example.testparttwo.entity.User;
 import com.example.testparttwo.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,64 +17,25 @@ public class UserRepoImpl implements UserRepo {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-
     @Override
-    public <S extends User> S save(S entity) {
-        return null;
+    public int save(User user) {
+        return jdbcTemplate.update("INSERT INTO users(login, password, full_name) VALUES(?, ?, ?)",
+                user.getLogin(),user.getPassword(),user.getFullName());
     }
 
     @Override
-    public <S extends User> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
+    public User findById(Long id) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE id=?",
+                    BeanPropertyRowMapper.newInstance(User.class), id);
+        } catch (IncorrectResultSizeDataAccessException e){
+            return null;
+        }
     }
 
     @Override
-    public Optional<User> findById(Long aLong) {
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean existsById(Long aLong) {
-        return false;
-    }
-
-    @Override
-    public Iterable<User> findAll() {
-        return null;
-    }
-
-    @Override
-    public Iterable<User> findAllById(Iterable<Long> longs) {
-        return null;
-    }
-
-    @Override
-    public long count() {
-        return 0;
-    }
-
-    @Override
-    public void deleteById(Long aLong) {
-
-    }
-
-    @Override
-    public void delete(User entity) {
-
-    }
-
-    @Override
-    public void deleteAllById(Iterable<? extends Long> longs) {
-
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends User> entities) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
+    public List<User> findAll() {
+        return jdbcTemplate.query("SELECT * FROM users",
+                BeanPropertyRowMapper.newInstance(User.class));
     }
 }

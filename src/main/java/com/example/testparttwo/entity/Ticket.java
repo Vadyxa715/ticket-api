@@ -56,4 +56,15 @@ public class Ticket {
         this.price = price;
         this.paid = paid;
     }
+
+
+
+    public Ticket(Date departureTime, Integer place, Double price, Boolean paid, Long userId, Long trailId) {
+        this.departureTime = departureTime;
+        this.place = place;
+        this.price = price;
+        this.paid = paid;
+        this.user.setUserId(userId);
+        this.trail.setTrailId(trailId);
+    }
 }

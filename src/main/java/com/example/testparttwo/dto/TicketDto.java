@@ -18,15 +18,15 @@ public class TicketDto {
     private Double price;
     private Boolean paid;
 
-    private TrailDto trailDto;
-    private Long trailId = trailDto.getId();
+//    private TrailDto trailDto;
+//    private Long trailId = trailDto.getId();
+//
+//    private UserDto userDto;
+//    private Long userId = userDto.getId();
 
-    private UserDto userDto;
-    private Long userId = userDto.getId();
-//
-//    private Long userId;
-//
-//    private Long trailId;
+    private Long userId;
+
+    private Long trailId;
 
 
     public TicketDto(Date departureTime, Integer place, Double price, Boolean paid, Long trailId, Long userId) {
@@ -37,4 +37,5 @@ public class TicketDto {
         this.trailId = trailId;
         this.userId = userId;
     }
+
 }

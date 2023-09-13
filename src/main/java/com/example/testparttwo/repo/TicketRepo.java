@@ -3,7 +3,6 @@ package com.example.testparttwo.repo;
 import com.example.testparttwo.entity.Ticket;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,14 +18,14 @@ public interface TicketRepo {
     //     bezkoder.com/spring-boot-jdbctemplate-postgresql-example/    *//
     int save(Ticket ticket);
 
-    int saveByUserIdAndTrailId(Ticket ticket);
+    //int saveByUserIdAndTrailId(Ticket ticket);
     int update(Ticket ticket);
     Ticket findById(Long id);
     int deleteById(Long id);
     List<Ticket> findAll();
     List<Ticket> findByPaid(boolean paid);
     List<Ticket> findByTransporter(String transporter);
+    List<Ticket> findAllByUserPaid(boolean paid, Long id);
     int deleteAll();
-
-    Ticket saveByUserIdAndTrailId(Ticket ticket);
+    int saveByUserIdAndTrailId(Ticket ticket);
 }
