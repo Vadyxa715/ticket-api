@@ -1,5 +1,6 @@
 package com.example.testparttwo.controller;
 
+import com.example.testparttwo.dto.TicketDto;
 import com.example.testparttwo.entity.Ticket;
 import com.example.testparttwo.repo.TicketRepo;
 import com.example.testparttwo.servise.TicketService;
@@ -8,10 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +25,15 @@ public class TicketController {
     private TicketService ticketService;
     // private TicketParam ticketParam;
 
-    @Operation(summary = "Создать билет")
-    @RequestMapping(method = RequestMethod.POST, value = "/create")
-    public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
+    @Operation(summary = "Создать билет для пользователя")
+    @RequestMapping(method = RequestMethod.POST, value = "/createTicketByUserIdAndTrailId")
+    public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto) {
         try {
-            ticketRepo.save(new Ticket(
-                    ticket.getDepartureTime(),
-                    ticket.getPlace(),
-                    ticket.getPrice(),
-                    false
+            ticketService.createTicket(new TicketDto(
+                    ticketDto.getDepartureTime(),
+                    ticketDto.getPlace(),
+                    ticketDto.getPrice(),
+                    ticketDto.getPaid()
             ));
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -58,6 +56,15 @@ public class TicketController {
         }
     }
 
+//    @Operation(summary = "получить список купленных билетов пользователя по id")
+//    @RequestMapping(method = RequestMethod.GET, value = "/getAllPaidTicketsByUserId")
+//    public ResponseEntity<List<Ticket>> getAllPaid() {
+//        try {
+//
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 
 //    @Operation(summary = "Отобразить все доступные для покупки билеты")

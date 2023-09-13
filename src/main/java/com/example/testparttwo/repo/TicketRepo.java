@@ -18,6 +18,8 @@ public interface TicketRepo {
     // сам пример:
     //     bezkoder.com/spring-boot-jdbctemplate-postgresql-example/    *//
     int save(Ticket ticket);
+
+    int saveByUserIdAndTrailId(Ticket ticket);
     int update(Ticket ticket);
     Ticket findById(Long id);
     int deleteById(Long id);
@@ -25,4 +27,6 @@ public interface TicketRepo {
     List<Ticket> findByPaid(boolean paid);
     List<Ticket> findByTransporter(String transporter);
     int deleteAll();
+
+    Ticket saveByUserIdAndTrailId(Ticket ticket);
 }
