@@ -12,9 +12,9 @@ public interface TicketService {
 
     TicketDto getTransporterByTicketId(TicketDto ticketDto);//получить перевозчика по билету
 
-    Page<TicketDto> getAllAvailableTicket (Pageable pageable);//доступные билеты для покупки
+    Page<TicketDto> getAllAvailableTicket(Pageable pageable);//доступные билеты для покупки
 
-    TicketDto payTicketById (Long ticketId);//купить билет по id
+    TicketDto payTicketById(Long ticketId);//купить билет по id
 
-    Page<TicketDto> getAllPaidTicket (Pageable pageable);//список всех купленных билетов
+    Page<TicketDto> getAllPaidTicket(Pageable pageable);//список всех купленных билетов
 }

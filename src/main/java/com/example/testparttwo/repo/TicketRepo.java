@@ -20,12 +20,20 @@ public interface TicketRepo {
 
     //int saveByUserIdAndTrailId(Ticket ticket);
     int update(Ticket ticket);
+
     Ticket findById(Long id);
+
     int deleteById(Long id);
+
     List<Ticket> findAll();
+
     List<Ticket> findByPaid(boolean paid);
+
     List<Ticket> findByTransporter(String transporter);
+
     List<Ticket> findAllByUserPaid(boolean paid, Long id);
+
     int deleteAll();
+
     int saveByUserIdAndTrailId(Ticket ticket);
 }

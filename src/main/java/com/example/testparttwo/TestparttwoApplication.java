@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 @ComponentScan(basePackages = {"com.example.testparttwo"})
 public class TestparttwoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TestparttwoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TestparttwoApplication.class, args);
+    }
 }

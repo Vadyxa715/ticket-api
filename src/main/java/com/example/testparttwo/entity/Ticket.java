@@ -23,7 +23,6 @@ public class Ticket {
     private Integer place;
     private Double price;
     private Boolean paid;       //Когда купим изменяем состояние для пользователя.
-
     private User user;//OneToOne
     private Long userId;
     private Long trailId;
@@ -58,13 +57,12 @@ public class Ticket {
     }
 
 
-
     public Ticket(Date departureTime, Integer place, Double price, Boolean paid, Long userId, Long trailId) {
         this.departureTime = departureTime;
         this.place = place;
         this.price = price;
         this.paid = paid;
-        this.userId = userId;//.setUserId(userId);
-        this.trailId = trailId;//.setTrailId(trailId);
+        this.userId = userId;
+        this.trailId = trailId;
     }
 }

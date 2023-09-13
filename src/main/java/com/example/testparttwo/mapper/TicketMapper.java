@@ -4,26 +4,27 @@ import com.example.testparttwo.dto.TicketDto;
 import com.example.testparttwo.entity.Ticket;
 
 public class TicketMapper {
-    public static TicketDto convert (Ticket ticket){
-        if(ticket == null) return null;
+    public static TicketDto convert(Ticket ticket) {
+        if (ticket == null) return null;
         return new TicketDto(
                 ticket.getDepartureTime(),
                 ticket.getPlace(),
                 ticket.getPrice(),
                 ticket.getPaid(),
-                ticket.getTrailId(),
-                ticket.getUserId()
+                ticket.getUserId(),
+                ticket.getTrailId()
         );
     }
-    public static Ticket revert (TicketDto ticketDto){
+
+    public static Ticket revert(TicketDto ticketDto) {
         if (ticketDto == null) return null;
         return new Ticket(
                 ticketDto.getDepartureTime(),
                 ticketDto.getPlace(),
                 ticketDto.getPrice(),
                 ticketDto.getPaid(),
-                ticketDto.getTrailId(),// getTrailDto().getId(),
-                ticketDto.getUserId() //getUserDto().getId()
+                ticketDto.getUserId(),
+                ticketDto.getTrailId()
         );
     }
 }

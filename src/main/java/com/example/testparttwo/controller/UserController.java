@@ -17,14 +17,14 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/users",produces = "application/json; charset=utf-8")//ручная установка родировки для swagger3
+@RequestMapping(value = "/users", produces = "application/json; charset=utf-8")//ручная установка родировки для swagger3
 public class UserController {
     private UserService userService;
     private TicketService ticketService;
 
     @Operation(summary = "Создать нового пользователя")
     @RequestMapping(method = RequestMethod.POST, value = "/create")
-    public ResponseEntity<UserDto> createUser (@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
 
         try {
             userService.createUser(new UserDto(
@@ -40,7 +40,7 @@ public class UserController {
 
     @Operation(summary = "Получить пользователя по  ID")
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long id){
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
         UserDto getUser = userService.getUser(id);
         //TO DO VALIDATION
         return new ResponseEntity<>(getUser, HttpStatus.OK);
@@ -48,7 +48,7 @@ public class UserController {
 
     @Operation(summary = "Получить всех пользоватей")
     @RequestMapping(method = RequestMethod.GET, value = "/allUsers")
-    public ResponseEntity<List<UserDto>> getAllUser(){
+    public ResponseEntity<List<UserDto>> getAllUser() {
         try {
             List<UserDto> usersDto = new ArrayList<UserDto>();
             userService.findAll().forEach(usersDto::add);

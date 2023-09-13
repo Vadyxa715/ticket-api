@@ -4,8 +4,8 @@ import com.example.testparttwo.dto.UserDto;
 import com.example.testparttwo.entity.User;
 
 public class UserMapper {
-    public static UserDto convert(User user){
-        if(user == null) return null;
+    public static UserDto convert(User user) {
+        if (user == null) return null;
         return new UserDto(
                 user.getUserId(),
                 user.getLogin(),
@@ -14,8 +14,8 @@ public class UserMapper {
         );
     }
 
-    public static User revert(UserDto userDto){
-        if(userDto == null) return null;
+    public static User revert(UserDto userDto) {
+        if (userDto == null) return null;
         return new User(
                 userDto.getId(),
                 userDto.getLogin(),

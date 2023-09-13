@@ -1,11 +1,10 @@
 package com.example.testparttwo.mapper;
 
-import com.example.testparttwo.dto.TrailDto;
 import com.example.testparttwo.dto.TransporterDto;
 import com.example.testparttwo.entity.Transporter;
 
 public class TransporterMapper {
-    public static Transporter convert (TransporterDto transporterDto){
+    public static Transporter convert(TransporterDto transporterDto) {
         if (transporterDto == null) return null;
         return new Transporter(
                 transporterDto.getId(),
@@ -14,8 +13,8 @@ public class TransporterMapper {
         );
     }
 
-    public static TransporterDto revert (Transporter transporter){
-        if(transporter==null) return null;
+    public static TransporterDto revert(Transporter transporter) {
+        if (transporter == null) return null;
         return new TransporterDto(
                 transporter.getTransporterId(),
                 transporter.getName(),

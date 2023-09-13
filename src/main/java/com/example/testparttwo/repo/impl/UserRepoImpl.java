@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class UserRepoImpl implements UserRepo {
@@ -20,15 +19,15 @@ public class UserRepoImpl implements UserRepo {
     @Override
     public int save(User user) {
         return jdbcTemplate.update("INSERT INTO users(login, password, full_name) VALUES(?, ?, ?)",
-                user.getLogin(),user.getPassword(),user.getFullName());
+                user.getLogin(), user.getPassword(), user.getFullName());
     }
 
     @Override
     public User findById(Long id) {
-        try{
+        try {
             return jdbcTemplate.queryForObject("SELECT * FROM users WHERE id=?",
                     BeanPropertyRowMapper.newInstance(User.class), id);
-        } catch (IncorrectResultSizeDataAccessException e){
+        } catch (IncorrectResultSizeDataAccessException e) {
             return null;
         }
     }

@@ -22,7 +22,7 @@ public class Trail {
     //поинт прибытия
     private String pointArrival;
 
-    @MappedCollection(keyColumn ="TRAIL_ID", idColumn = "TRAIL_ID")
+    @MappedCollection(keyColumn = "TRAIL_ID", idColumn = "TRAIL_ID")
     private Set<Transporter> transporters;
 
     private Integer duration;//время в пути

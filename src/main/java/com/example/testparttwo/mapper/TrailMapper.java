@@ -4,8 +4,8 @@ import com.example.testparttwo.dto.TrailDto;
 import com.example.testparttwo.entity.Trail;
 
 public class TrailMapper {
-    public static TrailDto convert (Trail trail){
-        if(trail==null) return null;
+    public static TrailDto convert(Trail trail) {
+        if (trail == null) return null;
         return new TrailDto(
                 trail.getTrailId(),
                 trail.getPointDeparture(),
@@ -14,8 +14,8 @@ public class TrailMapper {
         );
     }
 
-    public static Trail revert (TrailDto trailDto){
-        if(trailDto==null) return null;
+    public static Trail revert(TrailDto trailDto) {
+        if (trailDto == null) return null;
         return new Trail(
                 trailDto.getId(),
                 trailDto.getPointDeparture(),

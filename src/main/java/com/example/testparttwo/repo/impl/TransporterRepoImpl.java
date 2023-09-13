@@ -15,18 +15,17 @@ public class TransporterRepoImpl implements TransporterRepo {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     @Override
     public int save(Transporter transporter) {
         return jdbcTemplate.update("INSERT INTO transporters (name, phone) VALUES(?,?)",
                 transporter.getName(), transporter.getPhone());
-        //new Object[]{ticket.getTicketId(), ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid()});
     }
 
     @Override
     public int update(Transporter transporter) {
         return jdbcTemplate.update("UPDATE transporters SET name=?, phone=? WHERE id=?",
                 transporter.getName(), transporter.getPhone(), transporter.getTransporterId());
-        //new Object[]{ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getTicketId()});
     }
 
     @Override
@@ -35,7 +34,7 @@ public class TransporterRepoImpl implements TransporterRepo {
             Transporter transporter = jdbcTemplate.queryForObject("SELECT * FROM transporters WHERE id=?",
                     BeanPropertyRowMapper.newInstance(Transporter.class), id);
             return transporter;
-        }catch (IncorrectResultSizeDataAccessException e) {
+        } catch (IncorrectResultSizeDataAccessException e) {
             return null;
         }
     }
@@ -54,13 +53,6 @@ public class TransporterRepoImpl implements TransporterRepo {
     public int deleteAll() {
         return jdbcTemplate.update("DELETE FROM transporters");
     }
-
-
-
-
-
-
-
 
 
 }

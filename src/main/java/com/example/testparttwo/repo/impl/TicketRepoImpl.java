@@ -15,23 +15,17 @@ import java.util.List;
 
 @Repository
 public class TicketRepoImpl implements TicketRepo {
-
-
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
 
     @Override
     public int save(Ticket ticket) {
         return jdbcTemplate.update("INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES(?,?,?,?,?,?)",
                 ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUserId(), ticket.getTrailId());
-                //new Object[]{ticket.getTicketId(), ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid()});
-
     }
 
 
-
-        @Override
+    @Override
     public int saveByUserIdAndTrailId(Ticket ticket) {
         return jdbcTemplate.update("INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES(?,?,?,?,?,?)",
                 ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUser().getUserId(), ticket.getTrail().getTrailId());
@@ -41,7 +35,6 @@ public class TicketRepoImpl implements TicketRepo {
     public int update(Ticket ticket) {
         return jdbcTemplate.update("UPDATE tickets SET departure_time=?, place=?, price=?, paid=? WHERE id=?",
                 ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getTicketId());
-                //new Object[]{ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getTicketId()});
     }
 
     @Override
@@ -50,12 +43,10 @@ public class TicketRepoImpl implements TicketRepo {
             Ticket ticket = jdbcTemplate.queryForObject("SELECT * FROM tickets WHERE id=?",
                     BeanPropertyRowMapper.newInstance(Ticket.class), id);
             return ticket;
-        }catch (IncorrectResultSizeDataAccessException e) {
+        } catch (IncorrectResultSizeDataAccessException e) {
             return null;
         }
     }
-
-
 
     @Override
     public int deleteById(Long id) {
@@ -75,8 +66,8 @@ public class TicketRepoImpl implements TicketRepo {
 
     @Override
     public List<Ticket> findAllByUserPaid(boolean paid, Long id) {
-            return jdbcTemplate.query("SELECT * FROM tickets WHERE id=? AND paid=?",
-                    BeanPropertyRowMapper.newInstance(Ticket.class), id, paid);
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE id=? AND paid=?",
+                BeanPropertyRowMapper.newInstance(Ticket.class), id, paid);
     }
 
     //TO DO WIS ANNA SQL запрос на проверку транспортера
@@ -89,19 +80,6 @@ public class TicketRepoImpl implements TicketRepo {
     public int deleteAll() {
         return jdbcTemplate.update("DELETE FROM ticket");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public Iterable<Ticket> findAll(Sort sort) {

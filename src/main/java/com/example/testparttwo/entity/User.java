@@ -18,7 +18,7 @@ public class User {
     private Long userId;
     private String login;
     private String password;
-    private String fullName;//ФИО
+    private String fullName;
 
     @MappedCollection(keyColumn = "USER_ID", idColumn = "USER_ID")
     private Set<Ticket> tickets;
