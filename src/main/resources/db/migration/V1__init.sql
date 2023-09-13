@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS tickets (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     departure_time DATE NOT NULL,
     place integer NOT NULL,
-    price integer NOT NULL,
+    price numeric NOT NULL,
     paid boolean,
     user_id bigint REFERENCES users(id),
     trail_id bigint REFERENCES trails(id)

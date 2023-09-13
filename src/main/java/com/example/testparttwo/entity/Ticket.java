@@ -25,8 +25,8 @@ public class Ticket {
     private Boolean paid;       //Когда купим изменяем состояние для пользователя.
 
     private User user;//OneToOne
-    //private Long userId;
-    //private Long trailId;
+    private Long userId;
+    private Long trailId;
 
     private Trail trail;
 
@@ -64,7 +64,7 @@ public class Ticket {
         this.place = place;
         this.price = price;
         this.paid = paid;
-        this.user.setUserId(userId);
-        this.trail.setTrailId(trailId);
+        this.userId = userId;//.setUserId(userId);
+        this.trailId = trailId;//.setTrailId(trailId);
     }
 }

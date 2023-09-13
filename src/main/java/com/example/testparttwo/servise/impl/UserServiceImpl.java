@@ -19,6 +19,10 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
     private TicketRepo ticketrepo;
 
+    public UserServiceImpl(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
+
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = UserMapper.revert(userDto);

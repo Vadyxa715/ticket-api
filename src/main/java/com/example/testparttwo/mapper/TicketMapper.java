@@ -11,8 +11,8 @@ public class TicketMapper {
                 ticket.getPlace(),
                 ticket.getPrice(),
                 ticket.getPaid(),
-                ticket.getTrail().getTrailId(),
-                ticket.getUser().getUserId()
+                ticket.getTrailId(),
+                ticket.getUserId()
         );
     }
     public static Ticket revert (TicketDto ticketDto){
