@@ -16,5 +16,5 @@ public interface TicketService {
 
     TicketDto payTicketById(Long ticketId);//купить билет по id
 
-    Page<TicketDto> getAllPaidTicket(Pageable pageable);//список всех купленных билетов
+    Page<TicketDto> getAll(Pageable pageable);//список всех купленных билетов
 }

@@ -5,19 +5,18 @@ import com.example.testparttwo.entity.Ticket;
 import com.example.testparttwo.mapper.TicketMapper;
 import com.example.testparttwo.repo.TicketRepo;
 import com.example.testparttwo.servise.TicketService;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Component;
 
+@AllArgsConstructor
 @Component
 public class TicketServiceImpl implements TicketService {
 
+    private final TicketRepo ticketRepo;
 
-    private TicketRepo ticketRepo;
-
-    public TicketServiceImpl(TicketRepo ticketRepo) {
-        this.ticketRepo = ticketRepo;
-    }
 
     @Override
     public TicketDto createTicket(TicketDto ticketDto) {
@@ -49,7 +48,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page<TicketDto> getAllPaidTicket(Pageable pageable) {
-        return null;
+    public Page<TicketDto> getAll(Pageable myPageable) {
+        Page<Ticket> ticketsPage = ticketRepo.findAll(myPageable);
+        return ticketsPage.map(TicketMapper::convert);
     }
 }
+

@@ -5,12 +5,15 @@ import com.example.testparttwo.repo.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -88,6 +91,33 @@ public class TicketRepoImpl implements TicketRepo {
 
     @Override
     public Page<Ticket> findAll(Pageable pageable) {
-        return null;
+        int page = pageable.getPageNumber();
+        int pageSize = pageable.getPageSize();
+        Sort sort = pageable.getSort();
+
+        Sort.Order order = sort.toList().get(0);
+
+        return new PageImpl<>(
+                jdbcTemplate.query("SELECT * FROM tickets JOIN trails ON tickets.id = trails.id " +
+                                "JOIN transporters ON transporters.id = trails.transporter_id " +
+                                "ORDER BY " + order.getProperty() + " " + order.getDirection().name()
+                                + " LIMIT " + pageSize + " OFFSET " + page * pageSize,
+                        (resultSet, rowNum) ->  mapTicketResult(resultSet)
+                )
+        );
+    }
+
+    private Ticket mapTicketResult(final ResultSet resultSet) throws SQLException {
+        Ticket ticket = new Ticket();
+
+        ticket.setTicketId(resultSet.getLong("id"));
+        ticket.setDepartureTime(resultSet.getTime("departure_time"));
+        ticket.setPlace(resultSet.getInt("place"));
+        ticket.setPrice(resultSet.getDouble("price"));
+        ticket.setPaid(resultSet.getBoolean("paid"));
+        ticket.setUserId(resultSet.getLong("user_id"));
+        ticket.setTrailId(resultSet.getLong("trail_id"));
+
+        return ticket;
     }
 }

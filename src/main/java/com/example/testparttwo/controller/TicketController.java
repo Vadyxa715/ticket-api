@@ -7,12 +7,13 @@ import com.example.testparttwo.servise.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,17 +75,19 @@ public class TicketController {
 //    }
 
 
-//    @Operation(summary = "Отобразить все доступные для покупки билеты")
-//    @RequestMapping(method = RequestMethod.GET)
-//    public Page<TicketDto> getAllAvailableTicket(
-//            @RequestParam(defaultValue = "SORT_TIME", required = false) TicketParam sort,
-//            @RequestParam(defaultValue = "0", required = false) int page,
-//            @RequestParam(defaultValue = "3", required = false) int size,
-//            @RequestParam(defaultValue = "ASC", required = false) String order
-//    ) {
-//        Pageable paging = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order), String.valueOf(sort.getDescription())));
-//        Page<TicketDto> ticketsToList = ticketService.getAllAvailableTicket(paging);
-//        //TO DO VALIDATION
-//        return ticketsToList;
-//    }
+    @Operation(summary = "Получить все билеты")
+    @RequestMapping(method = RequestMethod.GET, value = "/getAllWithPagination")
+    public ResponseEntity<Page<TicketDto>> getAllTickets(
+            @RequestParam(defaultValue = "SORT_TIME", required = false) TicketParam sort,
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "3", required = false) int size,
+            @RequestParam(defaultValue = "ASC", required = false) String order
+    ){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order), sort.getDescription()));
+        Page<TicketDto> tickets = ticketService.getAll(pageable);
+        if(tickets.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(tickets, HttpStatus.OK);
+    }
 }
