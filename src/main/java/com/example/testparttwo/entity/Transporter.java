@@ -14,7 +14,7 @@ import java.util.Set;
 public class Transporter {
 
     @Id
-    private Long transporterId;
+    private Long id;
     private String name;
     private String phone;
 
@@ -22,7 +22,7 @@ public class Transporter {
     private Set<Trail> trails;
 
     public Transporter(Long transporterId, String name, String phone) {
-        this.transporterId = transporterId;
+        this.id = transporterId;
         this.name = name;
         this.phone = phone;
     }

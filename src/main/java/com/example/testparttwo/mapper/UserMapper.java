@@ -7,7 +7,7 @@ public class UserMapper {
     public static UserDto convert(User user) {
         if (user == null) return null;
         return new UserDto(
-                user.getUserId(),
+                user.getId(),
                 user.getLogin(),
                 user.getPassword(),
                 user.getFullName()

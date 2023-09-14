@@ -9,7 +9,7 @@ public class TrailMapper {
         return new TrailDto(
                 trail.getTrailId(),
                 trail.getPointDeparture(),
-                trail.getPointDeparture(),
+                trail.getPointArrival(),
                 trail.getDuration()
         );
     }

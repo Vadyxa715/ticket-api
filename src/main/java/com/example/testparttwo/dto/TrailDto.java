@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TrailDto {
-    @Schema(description = "Идентификатор", accessMode = Schema.AccessMode.READ_ONLY)
+   @Schema(description = "Идентификатор", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     private String pointDeparture;
     private String pointArrival;

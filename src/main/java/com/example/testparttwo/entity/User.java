@@ -15,7 +15,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    private Long userId;
+    private Long id;
     private String login;
     private String password;
     private String fullName;
@@ -24,7 +24,7 @@ public class User {
     private Set<Ticket> tickets;
 
     public User(Long userId, String login, String password, String fullName) {
-        this.userId = userId;
+        this.id = userId;
         this.login = login;
         this.password = password;
         this.fullName = fullName;
