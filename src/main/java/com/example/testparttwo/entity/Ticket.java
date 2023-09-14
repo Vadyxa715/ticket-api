@@ -22,15 +22,9 @@ public class Ticket {
     private Date departureTime;
     private Integer place;
     private Double price;
-    private Boolean paid;       //Когда купим изменяем состояние для пользователя.
-    private User user;//OneToOne
+    private Boolean paid;
     private Long userId;
     private Long trailId;
-
-    private Trail trail;
-
-    @MappedCollection(keyColumn = "TICKET_ID", idColumn = "TICKET_ID")
-    private Set<Trail> trails;
 
     public Ticket(Long ticketId, Date departureTime, Integer place, Double price, Boolean paid) {
         this.ticketId = ticketId;
@@ -40,22 +34,12 @@ public class Ticket {
         this.paid = paid;
     }
 
-    public Ticket(Date departureTime, Integer place, Double price, Boolean paid, User user, Trail trail) {
-        this.departureTime = departureTime;
-        this.place = place;
-        this.price = price;
-        this.paid = paid;
-        this.user = user;
-        this.trail = trail;
-    }
-
     public Ticket(Date departureTime, Integer place, Double price, Boolean paid) {
         this.departureTime = departureTime;
         this.place = place;
         this.price = price;
         this.paid = paid;
     }
-
 
     public Ticket(Date departureTime, Integer place, Double price, Boolean paid, Long userId, Long trailId) {
         this.departureTime = departureTime;

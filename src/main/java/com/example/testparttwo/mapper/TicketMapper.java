@@ -11,8 +11,8 @@ public class TicketMapper {
                 ticket.getPlace(),
                 ticket.getPrice(),
                 ticket.getPaid(),
-                ticket.getUserId(),
-                ticket.getTrailId()
+                ticket.getTrailId(),
+                ticket.getUserId()
         );
     }
 
@@ -23,8 +23,8 @@ public class TicketMapper {
                 ticketDto.getPlace(),
                 ticketDto.getPrice(),
                 ticketDto.getPaid(),
-                ticketDto.getUserId(),
-                ticketDto.getTrailId()
+                ticketDto.getTrailId(),
+                ticketDto.getUserId()
         );
     }
 }

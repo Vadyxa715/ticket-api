@@ -1,8 +1,6 @@
 package com.example.testparttwo.controller;
 
 import com.example.testparttwo.dto.TicketDto;
-import com.example.testparttwo.entity.Ticket;
-import com.example.testparttwo.repo.TicketRepo;
 import com.example.testparttwo.servise.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
@@ -21,13 +19,10 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/tickets", produces = "application/json; charset=utf-8")
-//ручная установка родировки для swagger3
 public class TicketController {
 
     @Autowired
-    private TicketRepo ticketRepo;
     private TicketService ticketService;
-    // private TicketParam ticketParam;
 
     @Operation(summary = "Создать билет для пользователя")
     @RequestMapping(method = RequestMethod.POST, value = "/createTicketByUserIdAndTrailId")
@@ -47,34 +42,6 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Operation(summary = "получить все билеты")
-    @RequestMapping(method = RequestMethod.GET, value = "/getAll")
-    public ResponseEntity<List<Ticket>> getAllTickets() {
-        try {
-            List<Ticket> tickets = new ArrayList<Ticket>();
-            ticketRepo.findAll().forEach(tickets::add);
-            if (tickets.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return new ResponseEntity<>(tickets, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-//    @Operation(summary = "получить список купленных билетов пользователя по id")
-//    @RequestMapping(method = RequestMethod.GET, value = "/getAllPaidTicketsByUserId")
-//    public ResponseEntity<List<TicketDto>> getAllPaid() {
-//        try {
-//            List<Ticket> tickets = new ArrayList<>();
-//            ticketRepo.findAllByUserPaid()
-//
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-
-
     @Operation(summary = "Получить все билеты")
     @RequestMapping(method = RequestMethod.GET, value = "/getAllWithPagination")
     public ResponseEntity<Page<TicketDto>> getAllTickets(
@@ -89,5 +56,24 @@ public class TicketController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(tickets, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Получить купленные билеты пользователя")
+    @RequestMapping(method = RequestMethod.GET, value = "/getAllPaidTicketByUserId{id}")
+    public ResponseEntity<List<TicketDto>> getAllPaidTicket(@PathVariable Long id){
+        try{
+            List<TicketDto> ticketDto = new ArrayList<>(ticketService.getPaidTicketByUserId(id));
+            return new ResponseEntity<>(ticketDto, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Operation(summary = "Купить билет")
+    @RequestMapping(method = RequestMethod.PUT, value = "/payTicket{ticketId}byUser{userId}")
+    public ResponseEntity<TicketDto> payTicket(@PathVariable(value = "ticketId") Long ticketId,
+                                               @PathVariable(value = "userId") Long userId){
+        TicketDto paidTicket = ticketService.payTicketById(ticketId, userId);
+        return new ResponseEntity<>(paidTicket, HttpStatus.OK);
     }
 }

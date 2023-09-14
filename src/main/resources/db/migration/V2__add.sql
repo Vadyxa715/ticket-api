@@ -6,6 +6,18 @@ INSERT INTO trails (point_departure, point_arrival, duration, transporter_id) VA
 INSERT INTO trails (point_departure, point_arrival, duration, transporter_id) VALUES ('Piter','Nizhny Novgorod','6','2');
 INSERT INTO trails (point_departure, point_arrival, duration, transporter_id) VALUES ('Sochi','Nizhny Novgorod','3','3');
 INSERT INTO trails (point_departure, point_arrival, duration, transporter_id) VALUES ('Novosibirsck','Nizhny Novgorod','1','4');
-INSERT INTO users (login, password, full_name) VALUES ('Vadyxa715', 'password', 'VadimKurdin');
-
-
+INSERT INTO trails (point_departure, point_arrival, duration, transporter_id) VALUES ('Novosibirsck1','TAGIL','3','4');
+INSERT INTO users (login, password, full_name) VALUES ('Vadyxa715', 'password1', 'VadimKurdin1');
+INSERT INTO users (login, password, full_name) VALUES ('Vadyxa716', 'password2', 'VadimKurdin2');
+INSERT INTO users (login, password, full_name) VALUES ('Vadyxa775', 'password3', 'VadimKurdin3');
+INSERT INTO users (login, password, full_name) VALUES ('Vadyxa785', 'password4', 'VadimKurdin4');
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-14',1,1000.50,false,null,1);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-14',1,9500.50,false,null,1);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-15',1,9000.50,false,null,2);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-15',1,8500.50,false,null,2);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-16',1,8000.50,false,null,3);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-17',1,7500.50,false,null,4);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-16',1,7000.50,false,null,3);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-17',1,6500.50,false,null,4);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-18',1,6000.50,false,null,5);
+INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-18',1,5000.50,false,null,5);

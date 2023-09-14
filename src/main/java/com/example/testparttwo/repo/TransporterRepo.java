@@ -9,14 +9,5 @@ import java.util.List;
 public interface TransporterRepo {
 
     int save(Transporter transporter);
-
-    int update(Transporter transporter);
-
     Transporter findById(Long id);
-
-    int deleteById(Long id);
-
-    List<Transporter> findAll();
-
-    int deleteAll();
 }

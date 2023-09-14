@@ -1,31 +1,26 @@
 package com.example.testparttwo.servise.impl;
 
-import com.example.testparttwo.dto.TicketDto;
 import com.example.testparttwo.dto.UserDto;
 import com.example.testparttwo.entity.User;
 import com.example.testparttwo.mapper.UserMapper;
-import com.example.testparttwo.repo.TicketRepo;
 import com.example.testparttwo.repo.UserRepo;
 import com.example.testparttwo.servise.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Component
 public class UserServiceImpl implements UserService {
 
-    private UserRepo userRepo;
-    private TicketRepo ticketrepo;
-
-    public UserServiceImpl(UserRepo userRepo) {
-        this.userRepo = userRepo;
-    }
+    private final UserRepo userRepo;
 
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = UserMapper.revert(userDto);
         int saveUser = userRepo.save(user);
-        User inserted = userRepo.findById(Long.valueOf(saveUser));
+        User inserted = userRepo.findById((long) saveUser);
         return UserMapper.convert(inserted);
     }
 
@@ -37,19 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAll() {
-        return null;
+        List<User> users = userRepo.findAll();
+        return users.stream().map(UserMapper::convert).toList();
     }
-
-    @Override
-    public List<TicketDto> getAllPaidTicketsByUserId(Long userId, TicketDto ticketDto) {
-        return null;
-    }
-
-//    @Override
-//    public List<TicketDto> getAllPaidTicketsByUserId(Long userId, TicketDto ticketDto) {
-//        return ticketrepo.findByUserId(userId)
-//                .stream().map(TicketMapper::convert)
-//                .filter(n -> n.getPaid())
-//                .collect(Collectors.toList());
-//    }
 }

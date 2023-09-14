@@ -31,13 +31,19 @@ public class TicketRepoImpl implements TicketRepo {
     @Override
     public int saveByUserIdAndTrailId(Ticket ticket) {
         return jdbcTemplate.update("INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES(?,?,?,?,?,?)",
-                ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUser().getUserId(), ticket.getTrail().getTrailId());
+                ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUserId(), ticket.getTrailId());
     }
 
     @Override
     public int update(Ticket ticket) {
         return jdbcTemplate.update("UPDATE tickets SET departure_time=?, place=?, price=?, paid=? WHERE id=?",
                 ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getTicketId());
+    }
+
+    @Override
+    public int bayTicket(Long ticketId, Long userId) {
+        return jdbcTemplate.update("UPDATE tickets SET user_id=?, paid='true' WHERE id=?",
+                userId,ticketId);
     }
 
     @Override
@@ -49,6 +55,11 @@ public class TicketRepoImpl implements TicketRepo {
         } catch (IncorrectResultSizeDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public List<Ticket> findPaidByUser(Long id) {
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE user_id=? and paid",BeanPropertyRowMapper.newInstance(Ticket.class),id);
     }
 
     @Override

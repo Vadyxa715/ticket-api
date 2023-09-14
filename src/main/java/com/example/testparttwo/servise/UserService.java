@@ -13,6 +13,4 @@ public interface UserService {
 
     List<UserDto> findAll();
 
-    List<TicketDto> getAllPaidTicketsByUserId(Long userId, TicketDto ticketDto);
-
 }

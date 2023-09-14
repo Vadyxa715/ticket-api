@@ -22,7 +22,11 @@ public interface TicketRepo extends PagingAndSortingRepository<Ticket, Long> {
     //int saveByUserIdAndTrailId(Ticket ticket);
     int update(Ticket ticket);
 
+    int bayTicket(Long ticketId, Long userId);
+
     Ticket findById(Long id);
+
+    List<Ticket> findPaidByUser (Long id);
 
     int deleteById(Long id);
 
