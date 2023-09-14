@@ -109,8 +109,8 @@ public class TicketRepoImpl implements TicketRepo {
         Sort.Order order = sort.toList().get(0);
 
         return new PageImpl<>(
-                jdbcTemplate.query("SELECT * FROM tickets JOIN trails ON tickets.id = trails.id " +
-                                "JOIN transporters ON transporters.id = trails.transporter_id " +
+                jdbcTemplate.query("SELECT * FROM tickets LEFT JOIN trails ON tickets.id = trails.id " +
+                                "LEFT JOIN transporters ON transporters.id = trails.transporter_id " +
                                 "ORDER BY " + order.getProperty() + " " + order.getDirection().name()
                                 + " LIMIT " + pageSize + " OFFSET " + page * pageSize,
                         (resultSet, rowNum) ->  mapTicketResult(resultSet)

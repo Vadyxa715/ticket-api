@@ -2,7 +2,6 @@ package com.example.testparttwo.servise.impl;
 
 import com.example.testparttwo.dto.TrailDto;
 import com.example.testparttwo.entity.Trail;
-import com.example.testparttwo.mapper.MapperTrailImpl;
 import com.example.testparttwo.mapper.TrailMapper;
 import com.example.testparttwo.repo.TrailRepo;
 import com.example.testparttwo.servise.TrailService;
