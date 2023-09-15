@@ -52,4 +52,11 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Operation(summary = "Получить пользователя по login")
+    @RequestMapping(method = RequestMethod.GET, value = "/getByLogin{login}")
+    public ResponseEntity<UserDto> getByLogin(@PathVariable(value = "login") String login){
+        UserDto getUser = userService.getByLogin(login);
+        return new ResponseEntity<>(getUser,HttpStatus.OK);
+    }
 }

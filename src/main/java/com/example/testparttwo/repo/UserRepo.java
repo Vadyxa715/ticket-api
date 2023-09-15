@@ -12,4 +12,6 @@ public interface UserRepo {
     User findById(Long id);
 
     List<User> findAll();
+
+    User findByLogin(String login);
 }

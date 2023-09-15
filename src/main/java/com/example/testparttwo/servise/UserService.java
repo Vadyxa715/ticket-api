@@ -13,4 +13,6 @@ public interface UserService {
 
     List<UserDto> findAll();
 
+    UserDto getByLogin(String login);
+
 }

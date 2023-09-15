@@ -37,4 +37,14 @@ public class UserRepoImpl implements UserRepo {
         return jdbcTemplate.query("SELECT * FROM users",
                 BeanPropertyRowMapper.newInstance(User.class));
     }
+
+    @Override
+    public User findByLogin(String login) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login=?",
+                    BeanPropertyRowMapper.newInstance(User.class), login);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
+    }
 }

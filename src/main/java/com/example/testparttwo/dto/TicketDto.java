@@ -20,8 +20,10 @@ public class TicketDto {
     private Double price;
     @Schema(description = "Boolean купленный", accessMode = Schema.AccessMode.READ_ONLY)
     private Boolean paid;
-    private Long userId;
+
     private Long trailId;
+    private Long userId;
+
 
     public TicketDto(Date departureTime, Integer place, Double price, Boolean paid, Long trailId, Long userId) {
         this.departureTime = departureTime;

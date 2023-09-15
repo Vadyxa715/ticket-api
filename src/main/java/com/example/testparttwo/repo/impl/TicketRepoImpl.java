@@ -27,19 +27,6 @@ public class TicketRepoImpl implements TicketRepo {
                 ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUserId(), ticket.getTrailId());
     }
 
-
-    @Override
-    public int saveByUserIdAndTrailId(Ticket ticket) {
-        return jdbcTemplate.update("INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES(?,?,?,?,?,?)",
-                ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUserId(), ticket.getTrailId());
-    }
-
-    @Override
-    public int update(Ticket ticket) {
-        return jdbcTemplate.update("UPDATE tickets SET departure_time=?, place=?, price=?, paid=? WHERE id=?",
-                ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getTicketId());
-    }
-
     @Override
     public int bayTicket(Long ticketId, Long userId) {
         return jdbcTemplate.update("UPDATE tickets SET user_id=?, paid='true' WHERE id=?",
@@ -59,45 +46,8 @@ public class TicketRepoImpl implements TicketRepo {
 
     @Override
     public List<Ticket> findPaidByUser(Long id) {
-        return jdbcTemplate.query("SELECT * FROM tickets WHERE user_id=? and paid",BeanPropertyRowMapper.newInstance(Ticket.class),id);
-    }
-
-    @Override
-    public int deleteById(Long id) {
-        return jdbcTemplate.update("DELETE FROM tickets WHERE id=?", id);
-    }
-
-    @Override
-    public List<Ticket> findAll() {
-        return jdbcTemplate.query("SELECT * FROM tickets", BeanPropertyRowMapper.newInstance(Ticket.class));
-    }
-
-    @Override
-    public List<Ticket> findByPaid(boolean paid) {
-        return jdbcTemplate.query("SELECT * FROM tickets WHERE paid=?",
-                BeanPropertyRowMapper.newInstance(Ticket.class), paid);
-    }
-
-    @Override
-    public List<Ticket> findAllByUserPaid(boolean paid, Long id) {
-        return jdbcTemplate.query("SELECT * FROM tickets WHERE id=? AND paid=?",
-                BeanPropertyRowMapper.newInstance(Ticket.class), id, paid);
-    }
-
-    //TO DO WIS ANNA SQL запрос на проверку транспортера
-    @Override
-    public List<Ticket> findByTransporter(String transporter) {
-        return null;
-    }
-
-    @Override
-    public int deleteAll() {
-        return jdbcTemplate.update("DELETE FROM ticket");
-    }
-
-
-    public Iterable<Ticket> findAll(Sort sort) {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE user_id=? and paid",
+                BeanPropertyRowMapper.newInstance(Ticket.class),id);
     }
 
     @Override
