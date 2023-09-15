@@ -20,11 +20,19 @@ public class User {
     private String password;
     private String fullName;
 
+    private Long roleId;
+
     @MappedCollection(keyColumn = "USER_ID", idColumn = "USER_ID")
     private Set<Ticket> tickets;
 
     public User(Long userId, String login, String password, String fullName) {
         this.id = userId;
+        this.login = login;
+        this.password = password;
+        this.fullName = fullName;
+    }
+
+    public User(String login, String password, String fullName) {
         this.login = login;
         this.password = password;
         this.fullName = fullName;

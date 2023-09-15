@@ -1,5 +1,7 @@
 package com.example.testparttwo.repo.impl;
 
+import com.example.testparttwo.entity.ERole;
+import com.example.testparttwo.entity.Role;
 import com.example.testparttwo.entity.User;
 import com.example.testparttwo.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,16 @@ public class UserRepoImpl implements UserRepo {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login=?",
                     BeanPropertyRowMapper.newInstance(User.class), login);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Role findByRole(ERole name) {
+        try {
+            return jdbcTemplate.queryForObject("",
+                    BeanPropertyRowMapper.newInstance(Role.class), name);
         } catch (IncorrectResultSizeDataAccessException e) {
             return null;
         }

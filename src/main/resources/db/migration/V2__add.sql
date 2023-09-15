@@ -21,3 +21,6 @@ INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALU
 INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-17',1,6500.50,false,null,4);
 INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-18',1,6000.50,false,null,5);
 INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES('2023-09-18',1,5000.50,false,null,5);
+INSERT INTO roles (role) VALUES ('ROLE_USER');
+INSERT INTO roles (role) VALUES ('ROLE_MODERATOR');
+INSERT INTO roles (role) VALUES ('ROLE_ADMIN');

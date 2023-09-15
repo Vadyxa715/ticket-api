@@ -4,11 +4,17 @@ CREATE TABLE IF NOT EXISTS transporters (
     phone VARCHAR(11) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS roles(
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    role VARCHAR NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS users (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     login VARCHAR NOT NULL UNIQUE,
     password VARCHAR NOT NULL,
-    full_name VARCHAR not NULL
+    full_name VARCHAR not NULL,
+    role_id bigint REFERENCES roles(id)
 );
 
 CREATE TABLE IF NOT EXISTS trails (

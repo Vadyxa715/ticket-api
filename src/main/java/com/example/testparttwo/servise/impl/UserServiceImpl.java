@@ -1,6 +1,7 @@
 package com.example.testparttwo.servise.impl;
 
 import com.example.testparttwo.dto.UserDto;
+import com.example.testparttwo.entity.ERole;
 import com.example.testparttwo.entity.User;
 import com.example.testparttwo.mapper.MapperUser;
 import com.example.testparttwo.repo.UserRepo;
@@ -41,5 +42,10 @@ public class UserServiceImpl implements UserService {
     public UserDto getByLogin(String login) {
         User user = userRepo.findByLogin(login);
         return mapperUser.toDto(user);
+    }
+
+    @Override
+    public UserDto getByName(ERole role) {
+        User user = userRepo.
     }
 }
