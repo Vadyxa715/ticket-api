@@ -1,10 +1,10 @@
 package com.example.testparttwo.repo;
 
-import com.example.testparttwo.entity.ERole;
 import com.example.testparttwo.entity.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepo {
@@ -14,7 +14,8 @@ public interface UserRepo {
 
     List<User> findAll();
 
-    User findByLogin(String login);
+    Optional<User> findByLogin(String login);
 
-    User findByRole(ERole role);
+    Boolean existsByLogin(String login);
+
 }

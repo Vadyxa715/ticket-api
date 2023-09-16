@@ -1,18 +1,29 @@
 package com.example.testparttwo.controller;
 
-import com.example.testparttwo.dto.UserDto;
+import com.example.testparttwo.entity.Role;
 import com.example.testparttwo.entity.User;
+import com.example.testparttwo.payload.request.LoginRequest;
+import com.example.testparttwo.payload.request.SignupRequest;
+import com.example.testparttwo.payload.response.JwtResponse;
+import com.example.testparttwo.payload.response.MessageResponse;
+import com.example.testparttwo.repo.RoleRepo;
 import com.example.testparttwo.repo.UserRepo;
+import com.example.testparttwo.security.jwt.JwtUtils;
+import com.example.testparttwo.security.services.UserDetailsImpl;
 import com.example.testparttwo.servise.UserService;
-import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/auth", produces = "application/json; charset=utf-8")
@@ -20,6 +31,106 @@ public class AuthController {
 
     @Autowired
     private final UserService userService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserRepo userRepository;
+
+    @Autowired
+    private RoleRepo roleRepository;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getLogin(), loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String role = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().orElse("ROLE_USER");
+
+        return ResponseEntity.ok(new JwtResponse(
+                jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                role));
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        if (userRepository.existsByLogin(signUpRequest.getLogin())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+
+        // Create new user's account
+        User user = new User(signUpRequest.getLogin(),
+                encoder.encode(signUpRequest.getPassword()));
+
+        Role strRoles = signUpRequest.getRole();
+        Role roles = new Role();
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+        //Закончил тут 23:25 16.09.2023
+
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+
+                        break;
+                    case "mod":
+                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(modRole);
+
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
+                }
+            });
+        }
+
+        user.setRoles(roles);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
 
 //    @Autowired
 //    private final UserRepo userRepo;

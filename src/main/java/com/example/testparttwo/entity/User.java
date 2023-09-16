@@ -4,10 +4,7 @@ package com.example.testparttwo.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -20,10 +17,11 @@ public class User {
     private String password;
     private String fullName;
 
-    private Long roleId;
+    //@MappedCollection(keyColumn = "role_id", idColumn = "role_id")
+    private Role role;
 
-    @MappedCollection(keyColumn = "USER_ID", idColumn = "USER_ID")
-    private Set<Ticket> tickets;
+//    @MappedCollection(keyColumn = "user_id", idColumn = "user_id")
+//    private Set<Ticket> tickets;
 
     public User(Long userId, String login, String password, String fullName) {
         this.id = userId;
@@ -36,5 +34,10 @@ public class User {
         this.login = login;
         this.password = password;
         this.fullName = fullName;
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Role {
     @Id
     private Integer id;
+
     private ERole name;
 
     public Role(ERole name) {

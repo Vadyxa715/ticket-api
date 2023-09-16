@@ -1,7 +1,5 @@
 package com.example.testparttwo.repo.impl;
 
-import com.example.testparttwo.entity.ERole;
-import com.example.testparttwo.entity.Role;
 import com.example.testparttwo.entity.User;
 import com.example.testparttwo.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepoImpl implements UserRepo {
@@ -41,22 +40,17 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public User findByLogin(String login) {
+    public Optional<User> findByLogin(String login) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login=?",
-                    BeanPropertyRowMapper.newInstance(User.class), login);
+            return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE login=?",
+                    BeanPropertyRowMapper.newInstance(User.class), login));
         } catch (IncorrectResultSizeDataAccessException e) {
-            return null;
+            return Optional.empty();
         }
     }
 
     @Override
-    public Role findByRole(ERole name) {
-        try {
-            return jdbcTemplate.queryForObject("",
-                    BeanPropertyRowMapper.newInstance(Role.class), name);
-        } catch (IncorrectResultSizeDataAccessException e) {
-            return null;
-        }
+    public Boolean existsByLogin(String login) {
+        return null;
     }
 }

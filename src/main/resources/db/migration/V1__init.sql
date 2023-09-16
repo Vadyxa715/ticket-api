@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS transporters (
     phone VARCHAR(11) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS roles(
+CREATE TABLE IF NOT EXISTS roles (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     role VARCHAR NOT NULL
 );
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS trails (
 
 CREATE TABLE IF NOT EXISTS tickets (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    departure_time DATE NOT NULL,
+    departure_time TIMESTAMP NOT NULL,
     place integer NOT NULL,
     price numeric NOT NULL,
     paid boolean,
