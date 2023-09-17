@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
     id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     login VARCHAR NOT NULL UNIQUE,
     password VARCHAR NOT NULL,
-    full_name VARCHAR not NULL,
+    full_name VARCHAR,
     role_id bigint REFERENCES roles(id)
 );
 

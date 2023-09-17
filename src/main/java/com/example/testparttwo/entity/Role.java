@@ -12,10 +12,10 @@ public class Role {
     @Id
     private Integer id;
 
-    private ERole name;
+    private ERole role;
 
     public Role(ERole name) {
-        this.name = name;
+        this.role = name;
     }
 
 }

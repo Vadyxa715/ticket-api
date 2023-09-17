@@ -20,7 +20,7 @@ public class RoleRepoImpl implements RoleRepo {
     @Override
     public Optional<Role> findByName(ERole name) {
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM roles WHERE name=?",
+            return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM roles WHERE role=?",
                     BeanPropertyRowMapper.newInstance(Role.class), name.name()));
         } catch (IncorrectResultSizeDataAccessException e) {
             return Optional.empty();

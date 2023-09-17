@@ -19,8 +19,8 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public int save(User user) {
-        return jdbcTemplate.update("INSERT INTO users(login, password, full_name) VALUES(?, ?, ?)",
-                user.getLogin(), user.getPassword(), user.getFullName());
+        return jdbcTemplate.update("INSERT INTO users(login, password, role_id) VALUES(?, ?, ?)",
+                user.getLogin(), user.getPassword(), user.getRole().getId());
     }
 
     @Override
