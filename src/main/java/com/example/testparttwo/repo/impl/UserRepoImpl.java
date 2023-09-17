@@ -51,6 +51,7 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public Boolean existsByLogin(String login) {
-        return null;
+        return jdbcTemplate.queryForObject("SELECT EXISTS (SELECT * FROM users WHERE login=?)",
+                Boolean.class, login);
     }
 }
