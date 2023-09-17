@@ -1,5 +1,6 @@
 package com.example.testparttwo.controller;
 
+import com.example.testparttwo.entity.ERole;
 import com.example.testparttwo.entity.Role;
 import com.example.testparttwo.entity.User;
 import com.example.testparttwo.payload.request.LoginRequest;
@@ -78,54 +79,31 @@ public class AuthController {
         User user = new User(signUpRequest.getLogin(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Role strRoles = signUpRequest.getRole();
-        Role roles = new Role();
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
-        //Закончил тут 23:25 16.09.2023
+        String strRoles = signUpRequest.getRole();
+        Role role = new Role();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+            role = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
+            //roles.setName(); add(userRole);
         } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
 
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
+            switch (strRoles) {
+                case "admin":
+                    role = roleRepository.findByName(ERole.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    break;
+                case "mod":
+                    role = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    break;
+                default:
+                    role = roleRepository.findByName(ERole.ROLE_USER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            }
         }
 
-        user.setRoles(roles);
+        user.setRole(role);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
