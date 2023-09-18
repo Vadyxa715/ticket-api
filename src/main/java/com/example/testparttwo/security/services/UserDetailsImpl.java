@@ -8,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,18 +35,9 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(User user) {
-        //List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(roleRepo.findById(user.getRoleId()).toString()));
-        //List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getRole().getRole().name()));
-       // List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        //List<GrantedAuthority> authorities = List.of((new SimpleGrantedAuthority(user.getRole().getRole().name())));
-
-
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//            authorities.set(0,new SimpleGrantedAuthority("ROLE_USER"));
-//            authorities.set(1,new SimpleGrantedAuthority("ROLE_ADMIN"));
-//            authorities.set(2,new SimpleGrantedAuthority("ROLE_MODERATOR"));
-
+        List<GrantedAuthority> authorities = List.of(
+                new SimpleGrantedAuthority(user.getRole() == null ? "ROLE_USER" : user.getRole().getRole().name())
+        );
 
         return new UserDetailsImpl(
                 user.getId(),

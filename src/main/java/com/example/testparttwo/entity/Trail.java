@@ -16,15 +16,13 @@ public class Trail {
 
     @Id
     private Long trailId;
-    //поинт отправление
     private String pointDeparture;
-    //поинт прибытия
     private String pointArrival;
 
     @MappedCollection(keyColumn = "TRAIL_ID", idColumn = "TRAIL_ID")
     private Set<Transporter> transporters;
 
-    private Integer duration;//время в пути
+    private Integer duration;
 
     public Trail(Long trailId, String pointDeparture, String pointArrival, Integer duration) {
         this.trailId = trailId;

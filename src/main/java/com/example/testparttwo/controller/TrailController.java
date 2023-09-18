@@ -3,6 +3,7 @@ package com.example.testparttwo.controller;
 import com.example.testparttwo.dto.TrailDto;
 import com.example.testparttwo.servise.TrailService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/trails", produces = "application/json; charset=utf-8")
+@SecurityRequirement(name = "Authorization")
 public class TrailController {
 
     @Autowired

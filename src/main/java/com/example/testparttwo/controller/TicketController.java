@@ -3,6 +3,7 @@ package com.example.testparttwo.controller;
 import com.example.testparttwo.dto.TicketDto;
 import com.example.testparttwo.servise.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/tickets", produces = "application/json; charset=utf-8")
+@SecurityRequirement(name = "Authorization")
 public class TicketController {
 
     @Autowired

@@ -18,4 +18,7 @@ public interface UserRepo {
 
     Boolean existsByLogin(String login);
 
+
+
+
 }

@@ -3,6 +3,7 @@ package com.example.testparttwo.controller;
 import com.example.testparttwo.dto.UserDto;
 import com.example.testparttwo.servise.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,8 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/users", produces = "application/json; charset=utf-8")//ручная установка родировки для swagger3
+@RequestMapping(value = "/users", produces = "application/json; charset=utf-8")
+@SecurityRequirement(name = "Authorization")
 public class UserController {
 
     @Autowired

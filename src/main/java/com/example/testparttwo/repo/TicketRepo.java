@@ -3,13 +3,12 @@ package com.example.testparttwo.repo;
 import com.example.testparttwo.entity.Ticket;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface TicketRepo {//extends PagingAndSortingRepository<Ticket, Long> {
+public interface TicketRepo {
 
     Page<Ticket> findAll(Pageable myPageable);
 

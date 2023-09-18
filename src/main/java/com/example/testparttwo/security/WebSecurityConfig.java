@@ -6,7 +6,6 @@ import com.example.testparttwo.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -63,11 +62,46 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/auth/**","/auth/signup","/auth/signin","/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources", "/v3/api-docs/**", "/proxy/**").permitAll()
-                                .requestMatchers("/api/test/**").permitAll()
-                                //.requestMatchers("/api/test/user").hasRole("USER")
-                                .requestMatchers("/api/test/user").hasAuthority("USER")
-                                .requestMatchers("/api/test/admin").hasRole("ADMIN")
+                        auth.requestMatchers(
+                                "/auth/**",
+                                        "/auth/signup",
+                                        "/auth/signin",
+                                        "/swagger-ui.html",
+                                        "/swagger-ui/**",
+                                        "/swagger-resources/**",
+                                        "/swagger-resources",
+                                        "/v3/api-docs/**",
+                                        "/proxy/**"
+                                ).permitAll()
+
+                                .requestMatchers(
+                                "/tickets/payTicket{ticketId}byUser{userId}"
+                                ).hasAnyRole("USER")
+
+                                .requestMatchers(
+                                "/tickets/createTicketByUserIdAndTrailId",
+                                        "/users/create",
+                                        "/users/{id}",
+                                        "/users/getByLogin{login}",
+                                        "/users/allUsers",
+                                        "/transporters/create",
+                                        "/trails/create"
+                                ).hasAnyRole("ADMIN")
+
+                                .requestMatchers(
+                                "/tickets/createTicketByUserIdAndTrailId",
+                                        "/users/{id}",
+                                        "/users/getByLogin{login}",
+                                        "/users/allUsers"
+                                ).hasAnyRole("MODERATOR")
+
+                                .requestMatchers(
+                                "/tickets/getAllWithPagination",
+                                        "/transporters/get{id}",
+                                        "/tickets/getAllPaidTicketByUserId{id}",
+                                        "/trails/get{id}"
+                                ).hasAnyRole("MODERATOR","ADMIN","USER")
+
                                 .anyRequest().authenticated()
                 );
 
