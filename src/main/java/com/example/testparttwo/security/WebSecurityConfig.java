@@ -65,9 +65,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/auth/**","/auth/signup","/auth/signin","/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources", "/v3/api-docs/**", "/proxy/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
-                                //.requestMatchers("/api/test/userId").hasAuthority("ROLE_USER")
-                                //.requestMatchers("/api/test/userId").hasRole("USER")
-                                //.requestMatchers("/api/test/userId").hasRole("ADMIN")
+                                //.requestMatchers("/api/test/user").hasRole("USER")
+                                .requestMatchers("/api/test/user").hasAuthority("USER")
+                                .requestMatchers("/api/test/admin").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 );
 

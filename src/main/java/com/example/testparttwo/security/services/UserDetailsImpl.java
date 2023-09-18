@@ -38,7 +38,11 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl build(User user) {
         //List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(roleRepo.findById(user.getRoleId()).toString()));
         //List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getRole().getRole().name()));
+       // List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        //List<GrantedAuthority> authorities = List.of((new SimpleGrantedAuthority(user.getRole().getRole().name())));
+
+
 //        List<GrantedAuthority> authorities = new ArrayList<>();
 //            authorities.set(0,new SimpleGrantedAuthority("ROLE_USER"));
 //            authorities.set(1,new SimpleGrantedAuthority("ROLE_ADMIN"));
