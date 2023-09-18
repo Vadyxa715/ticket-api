@@ -1,10 +1,11 @@
 package com.example.testparttwo.controller;
 
 public enum TicketParam {
-    SORT_TIME("departureTime"),
-    SORT_POINT_DEPARTURE("trail.pointDeparture"),
-    SORT_POINT_ARRIVAL("trail.pointArrival"),
-    SORT_TRANSPORTER("trail.transporter.name");
+    SORT_PRICE("price"),
+    SORT_TIME("departure_time"),
+    SORT_POINT_DEPARTURE("trails.point_departure"),
+    SORT_POINT_ARRIVAL("trails.point_arrival"),
+    SORT_TRANSPORTER("trails.transporter_id");
 
     private String description;
 
