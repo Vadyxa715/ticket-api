@@ -26,4 +26,14 @@ public class RoleRepoImpl implements RoleRepo {
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<Role> findById(Long id) {
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM roles WHERE id=?",
+                    BeanPropertyRowMapper.newInstance(Role.class), id));
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return Optional.empty();
+        }
+    }
 }

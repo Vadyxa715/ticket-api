@@ -10,7 +10,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("ticket")
 public class Role {
     @Id
-    private Integer id;
+    private Long id;
 
     private ERole role;
 

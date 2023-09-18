@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface RoleRepo {
 
     Optional<Role> findByName(ERole name);
+
+    Optional<Role> findById(Long id);
 }

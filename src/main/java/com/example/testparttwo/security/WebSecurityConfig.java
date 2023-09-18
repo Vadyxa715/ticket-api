@@ -6,6 +6,7 @@ import com.example.testparttwo.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -64,6 +65,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/auth/**","/auth/signup","/auth/signin","/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources", "/v3/api-docs/**", "/proxy/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
+                                //.requestMatchers("/api/test/userId").hasAuthority("ROLE_USER")
+                                //.requestMatchers("/api/test/userId").hasRole("USER")
+                                //.requestMatchers("/api/test/userId").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 );
 
