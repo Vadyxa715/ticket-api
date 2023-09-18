@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TrailDto {
-    @Schema(name = "Идентификатор", description = "ID поездки", example = "1", requiredMode = Schema.RequiredMode.REQUIRED, accessMode = Schema.AccessMode.READ_ONLY)
+    @Schema(description = "ID поездки", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
-    @Schema(name = "Отправление", description = "место отправления", example = "Moscow", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "место отправления", example = "Moscow", requiredMode = Schema.RequiredMode.REQUIRED)
     private String pointDeparture;
-    @Schema(name = "Прибытие", description = "место прибытия", example = "Moscow", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "место прибытия", example = "Moscow", requiredMode = Schema.RequiredMode.REQUIRED)
     private String pointArrival;
-    @Schema(name = "Время(ч)", description = "время в пути", example = "2", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "время в пути", example = "2", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer duration;
 
     public TrailDto(String pointDeparture, String pointArrival, Integer duration) {

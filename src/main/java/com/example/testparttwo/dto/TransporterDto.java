@@ -13,9 +13,9 @@ public class TransporterDto {
     @Schema(description = "Идентификатор", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     @NonNull
-    @Schema(name = "Наименование", description = "название транспортной компании", example = "OOO Nord", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "название транспортной компании", example = "OOO Nord", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
-    @Schema(name = "Телефон", description = "телефон для связи", example = "79991511515", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "телефон для связи", example = "79991511515", requiredMode = Schema.RequiredMode.REQUIRED)
     private String phone;
 
     public TransporterDto(@NonNull String name, String phone) {
