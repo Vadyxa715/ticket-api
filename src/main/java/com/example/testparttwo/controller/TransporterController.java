@@ -1,5 +1,6 @@
 package com.example.testparttwo.controller;
 
+import com.example.testparttwo.controller.customException.EntityNotFoundException;
 import com.example.testparttwo.dto.TransporterDto;
 import com.example.testparttwo.servise.TransporterService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,21 +21,17 @@ public class TransporterController {
     TransporterService transporterService;
 
     @Operation(summary = "Создать нового транспортера")
-    @RequestMapping(method = RequestMethod.POST, value = "/create")
+    @PostMapping
     public ResponseEntity<TransporterDto> createTransporter (@RequestBody TransporterDto transporterDto){
-        try{
             transporterService.create(new TransporterDto(
                     transporterDto.getName(),
                     transporterDto.getPhone()
                     ));
-        }catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Подучить транспортера по id")
-    @RequestMapping(method = RequestMethod.GET, value = "/get{id}")
+    @Operation(summary = "Получить транспортера по id")
+    @GetMapping(value = "/get{id}")
     public ResponseEntity<TransporterDto> getById (@PathVariable Long id){
         TransporterDto findTransporter = transporterService.get(id);
         return new ResponseEntity<>(findTransporter, HttpStatus.FOUND);

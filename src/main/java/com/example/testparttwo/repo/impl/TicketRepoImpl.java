@@ -23,14 +23,16 @@ public class TicketRepoImpl implements TicketRepo {
 
     @Override
     public int save(Ticket ticket) {
-        return jdbcTemplate.update("INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) VALUES(?,?,?,?,?,?)",
-                ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(), ticket.getPaid(), ticket.getUserId(), ticket.getTrailId());
+        return jdbcTemplate.update("INSERT INTO tickets (departure_time, place, price, paid, user_id, trail_id) " +
+                        "VALUES(?,?,?,?,?,?)",
+                ticket.getDepartureTime(), ticket.getPlace(), ticket.getPrice(),
+                ticket.getPaid(), ticket.getUserId(), ticket.getTrailId());
     }
 
     @Override
     public int bayTicket(Long ticketId, Long userId) {
         return jdbcTemplate.update("UPDATE tickets SET user_id=?, paid='true' WHERE id=?",
-                userId,ticketId);
+                userId, ticketId);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class TicketRepoImpl implements TicketRepo {
     @Override
     public List<Ticket> findPaidByUser(Long id) {
         return jdbcTemplate.query("SELECT * FROM tickets WHERE user_id=? and paid",
-                BeanPropertyRowMapper.newInstance(Ticket.class),id);
+                BeanPropertyRowMapper.newInstance(Ticket.class), id);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class TicketRepoImpl implements TicketRepo {
                                 "LEFT JOIN transporters ON transporters.id = trails.transporter_id " +
                                 "ORDER BY " + order.getProperty() + " " + order.getDirection().name()
                                 + " LIMIT " + pageSize + " OFFSET " + page * pageSize,
-                        (resultSet, rowNum) ->  mapTicketResult(resultSet)
+                        (resultSet, rowNum) -> mapTicketResult(resultSet)
                 )
         );
     }

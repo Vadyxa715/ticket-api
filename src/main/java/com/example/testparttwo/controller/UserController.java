@@ -1,5 +1,6 @@
 package com.example.testparttwo.controller;
 
+import com.example.testparttwo.controller.customException.EntityNotFoundException;
 import com.example.testparttwo.dto.UserDto;
 import com.example.testparttwo.servise.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,40 +24,32 @@ public class UserController {
     private UserService userService;
 
     @Operation(summary = "Создать нового пользователя")
-    @RequestMapping(method = RequestMethod.POST, value = "/create")
+    @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        try {
             userService.createUser(new UserDto(
                     userDto.getLogin(),
                     userDto.getPassword(),
                     userDto.getFullName()
             ));
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Operation(summary = "Получить пользователя по  ID")
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         UserDto getUser = userService.getUser(id);
         return new ResponseEntity<>(getUser, HttpStatus.OK);
     }
 
     @Operation(summary = "Получить всех пользоватей")
-    @RequestMapping(method = RequestMethod.GET, value = "/allUsers")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<UserDto>> getAllUser() {
-        try {
             List<UserDto> usersDto = new ArrayList<UserDto>(userService.findAll());
             return new ResponseEntity<>(usersDto, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @Operation(summary = "Получить пользователя по login")
-    @RequestMapping(method = RequestMethod.GET, value = "/getByLogin{login}")
+    @GetMapping(value = "/byLogin{login}")
     public ResponseEntity<UserDto> getByLogin(@PathVariable(value = "login") String login){
         UserDto getUser = userService.getByLogin(login);
         return new ResponseEntity<>(getUser,HttpStatus.OK);
